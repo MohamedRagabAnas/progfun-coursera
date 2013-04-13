@@ -20,7 +20,7 @@ object FunSets {
   /**
    * Returns the set of the one given element.
    */
-  def singletonSet(elem: Int): Set = (e: Int) => (e == elem)
+  def singletonSet(elem: Int): Set = (_ == elem)
 
   /**
    * Returns the union of the two given sets,
@@ -49,7 +49,7 @@ object FunSets {
    * Returns the subset of `s` for which `p` holds.
    */
   def filter(s: Set, p: Int => Boolean): Set = {
-    intersect((e: Int) => p(e), s)
+    intersect(p(_), s)
   }
 
   /**
@@ -70,7 +70,7 @@ object FunSets {
   }
 
   def empty(s: Set): Boolean = {
-    forall(s, (i: Int) => !contains(s, i))
+    forall(s, !contains(s, _))
   }
 
   /**
@@ -85,7 +85,7 @@ object FunSets {
    * Returns a set transformed by applying `f` to each element of `s`.
    */
   def map(s: Set, f: Int => Int): Set = {
-    (j: Int) => exists(s, i => f(i) == j)
+    (j: Int) => exists(s, f(_) == j)
   }
 
   /**
