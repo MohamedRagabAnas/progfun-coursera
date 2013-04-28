@@ -59,6 +59,7 @@ class TweetSetSuite extends FunSuite {
   test("union: with empty set (2)") {
     new TestSets {
       assert(size(set1.union(set5)) === 4)
+      assert(size(set2.union(set2)) === 1)
     }
   }
 
@@ -67,6 +68,16 @@ class TweetSetSuite extends FunSuite {
       val trends = set5.descendingByRetweet
       assert(!trends.isEmpty)
       assert(trends.head.user == "a" || trends.head.user == "b")
+      assert(trends.head.retweets == 20)
+      assert(trends.tail.tail.head.retweets == 9)
+      assert(trends.tail.tail.tail.head.retweets == 7)
+    }
+  }
+
+  test("google and apple") {
+    new TestSets {
+      //      s
+      //      println(TweetReader.allTweets)
     }
   }
 }

@@ -21,3 +21,7 @@ tmp
 .target
 conf/application.conf
 **/lib_managed
+**/*.class
+**/**/*.class
+**/.worksheet/
+**/.cache/
