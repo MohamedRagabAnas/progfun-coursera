@@ -26,3 +26,5 @@ conf/application.conf
 **/.worksheet/
 **/.cache/
 .cache
+.classpath
+.project
