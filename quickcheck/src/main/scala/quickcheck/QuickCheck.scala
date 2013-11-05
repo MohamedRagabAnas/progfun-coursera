@@ -31,16 +31,40 @@ abstract class QuickCheckHeap extends Properties("Heap") with IntHeap {
       deleteMin(h1) == empty
     }
 
+  property("delete min 2 elems results empty") =
+    forAll { (a: Int, b: Int, c: Int, d: Int) =>
+      val h1 = insert(a, insert(b, empty))
+      deleteMin(deleteMin(h1)) == empty
+    }
+
   property("min meld is min of one or another") =
     forAll { (h1: H, h2: H) =>
       val hm = meld(h1, h2)
       findMin(hm) == Math.min(findMin(h1), findMin(h2))
     }
 
+  property("melding 3 times and deleting 3 mins, next min are equal") =
+    forAll { (h: H) =>
+      val hm = meld(meld(h, h), h)
+      val h1 = deleteMin(deleteMin(deleteMin(hm)))
+      val h2 = deleteMin(h)
+      isEmpty(h2) || findMin(h1) == findMin(h2)
+    }
+
   property("Sorted sequence when deleting min") =
     forAll { (h: H) =>
       val seq = elemSeq(h, Seq())
       seq == seq.sorted
+    }
+
+  property("meld empty results same heap") =
+    forAll { (h: H) =>
+      meld(h, empty) == h
+    }
+
+  property("meld empty results same heap") =
+    forAll { (h: H) =>
+      meld(empty, h) == h
     }
 
   def elemSeq(h: H, s: Seq[A]): Seq[A] = {
